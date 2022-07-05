@@ -1,63 +1,64 @@
 import { MovieApiPath } from "../enums/movie-api-path";
-import { IMovieResult, IMoviesResponse, IParams } from "../interfaces/interfaces";
+import { IMoviesResponse, IParams } from "../interfaces/interfaces";
+import { ApiReturnedValue } from "../types/api-returned-value";
 
 const API_URL = process.env.API_URL;
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.API_KEY
 
-export const getPopular = async (page = 1): Promise<IMovieResult[]> => {
+export const getPopular = async (page = 1): Promise<ApiReturnedValue> => {
 	const params = {
 		api_key: API_KEY,
 		page
 	}
 
-	const { results }  = await fetchRequest<IMoviesResponse>(
+	const { results, total_pages }  = await fetchRequest<IMoviesResponse>(
 		`${API_URL + MovieApiPath.popular}`, 
 		params
 	);
 
-	return results;
+	return { results, total_pages };
 }
 
-export const getRated = async (page = 1): Promise<IMovieResult[]> => {
+export const getRated = async (page = 1): Promise<ApiReturnedValue> => {
 	const params = {
 		api_key: API_KEY,
 		page
 	}
 
-	const { results } = await fetchRequest<IMoviesResponse>(
+	const { results, total_pages } = await fetchRequest<IMoviesResponse>(
 		`${API_URL + MovieApiPath.rated}`, 
 		params
 	);
 
-	return results;
+	return { results, total_pages };
 }
 
-export const getUpcoming = async (page = 1): Promise<IMovieResult[]> => {
+export const getUpcoming = async (page = 1): Promise<ApiReturnedValue> => {
 	const params = {
 		api_key: API_KEY,
 		page
 	}
 
-	const { results } = await fetchRequest<IMoviesResponse>(
+	const { results, total_pages } = await fetchRequest<IMoviesResponse>(
 		`${API_URL + MovieApiPath.upcoming}`, 
 		params
 	);
 
-	return results;
+	return { results, total_pages };
 }
 
-export const getByName = async (searchKey: string): Promise<IMovieResult[]> => {
+export const getByName = async (searchKey: string): Promise<ApiReturnedValue> => {
 	const params = {
 		api_key: API_KEY,
 		query: searchKey
 	}
 
-	const { results } = await fetchRequest<IMoviesResponse>(
+	const { results, total_pages } = await fetchRequest<IMoviesResponse>(
 		`${API_URL + MovieApiPath.search}`, 
 		params
 	);
 
-	return results;
+	return { results, total_pages };
 }
 
 const fetchRequest = async <T>(url: string, params: IParams): Promise<T> => {

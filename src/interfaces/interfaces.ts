@@ -38,10 +38,14 @@ export interface IParams {
 }
 
 export interface IPage {
-	currentPage: "popular" | "rated" | "upcoming" | "search";
+	currentType: "popular" | "rated" | "upcoming" | "search";
+	currentPage: number;
+	totalPage?: number;
+	searchKey?: string;
 }
 
 export interface IFillPageProps {
 	page?: number;
 	searchKey?: string;
+	isLoadMore?: boolean;
 }
