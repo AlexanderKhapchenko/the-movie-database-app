@@ -3,4 +3,5 @@ export const MovieApiPath = {
 	rated: '/movie/top_rated',
 	upcoming: '/movie/upcoming',
 	search: '/search/movie',
+	details: '/movie'
 }

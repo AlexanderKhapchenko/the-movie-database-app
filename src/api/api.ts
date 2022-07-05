@@ -1,5 +1,5 @@
 import { MovieApiPath } from "../enums/movie-api-path";
-import { IMoviesResponse, IParams } from "../interfaces/interfaces";
+import { IMovieResult, IMoviesResponse, IParams } from "../interfaces/interfaces";
 import { ApiReturnedValue } from "../types/api-returned-value";
 
 const API_URL = process.env.API_URL;
@@ -59,6 +59,19 @@ export const getByName = async (searchKey: string): Promise<ApiReturnedValue> =>
 	);
 
 	return { results, total_pages };
+}
+
+export const getById = async (id: string): Promise<IMovieResult> => {
+	const params = {
+		api_key: API_KEY
+	}
+
+	const results  = await fetchRequest<IMovieResult>(
+		`${API_URL + MovieApiPath.details}/${id}`, 
+		params
+	);
+
+	return results;
 }
 
 const fetchRequest = async <T>(url: string, params: IParams): Promise<T> => {

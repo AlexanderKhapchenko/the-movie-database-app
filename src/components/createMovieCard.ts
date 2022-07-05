@@ -1,11 +1,13 @@
+import { addFavoriteMovies, removeFavoriteMovies } from "../helpers/favoriteMovies";
 import { IMovie } from "../interfaces/interfaces";
 
-export const createMovieCard = ({id, posterPath, overview, releaseDate}: IMovie): HTMLElement => {
+export const createMovieCard = ({id, posterPath, overview, releaseDate}: IMovie, inFavoriteList = false): HTMLElement => {
 	const fullHeart = 'red';
 	const emptyHeart = '#ff000078';
 
 	const movieCard = document.createElement('div');
-	movieCard.classList.add("col-lg-3", "col-md-4", "col-12", "p-2");
+	const classes = inFavoriteList ? 'col-12 p-2'.split(' ') : 'col-lg-3 col-md-4 col-12 p-2'.split(' ');
+	movieCard.classList.add(...classes);
 
 	const isLiked = localStorage.getItem(id.toString());
 
@@ -38,19 +40,36 @@ export const createMovieCard = ({id, posterPath, overview, releaseDate}: IMovie)
 			</div>
 		</div>
 	`
-
 	const likeButton = movieCard.querySelector('svg') as SVGSVGElement;
 	likeButton.onclick = () => {
-			if (likeButton.getAttribute('is-liked') === 'true') {
-				likeButton.setAttribute('is-liked', 'false');
-				likeButton.setAttribute('fill', emptyHeart);
+		toggleLike(likeButton);
+		inFavoriteList && checkSimilarFilm(id);
+	};
+	
+	const checkSimilarFilm = (id: number): void => {
+		const movie = document.querySelector(`#film-container svg[movie-id="${id}"]`);
+		movie && toggleLike(movie);
+	}
+
+	const toggleLike = (element: Element) => {
+		if (element.getAttribute('is-liked') === 'true') {
+			element.setAttribute('is-liked', 'false');
+			element.setAttribute('fill', emptyHeart);
+
+			if (!inFavoriteList) {
 				localStorage.removeItem(id.toString());
+				removeFavoriteMovies(id);
 			}
-			else {
-				likeButton.setAttribute('is-liked', 'true');
-				likeButton.setAttribute('fill', fullHeart);
+		}
+		else {
+			element.setAttribute('is-liked', 'true');
+			element.setAttribute('fill', fullHeart);
+
+			if (!inFavoriteList) {
 				localStorage.setItem(id.toString(), 'like');
+				addFavoriteMovies(id.toString());
 			}
+		}
 	}
 
 	return movieCard;
