@@ -22,6 +22,15 @@ export interface IMovieResult {
 	vote_average: number;
 };
 
+export interface IMovie {
+	posterPath: string | null;
+	overview: string;
+	releaseDate: string;
+	id: number;
+	title: string;
+	backdropPath: string | null;
+}
+
 export interface IParams {
 	api_key: string; 
 	query?: string; 
