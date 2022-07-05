@@ -3,9 +3,17 @@ import { getFormattedMovie } from "./mapper";
 import { renderMovieList } from "./html/renderers";
 import { IFillPageProps, IPage } from "../interfaces/interfaces";
 
-const state: IPage = {
-	currentPage: "popular"
+let state: IPage = {
+	currentType: "popular",
+	currentPage: 1
 };
+
+const setState = (currentState: IPage, fieldsToUpdate: Partial<IPage>) => {
+	state = {
+		...currentState,
+		...fieldsToUpdate
+	}
+}
 
 const pageType = {
 	popular: getPopular,
@@ -14,38 +22,73 @@ const pageType = {
 	search: getByName,
 }
 
-export const FillPage = async ({ page, searchKey }: IFillPageProps): Promise<void> => {
-	const { currentPage } = state;
+export const FillPage = async ({ page, isLoadMore = false }: IFillPageProps): Promise<void> => {
+	const { currentType: currentPage } = state;
 
 	let result;
 
 	if (currentPage == "search") {
-		result = await pageType[currentPage](searchKey as string);
+		result = await pageType[currentPage](state.searchKey as string);
 	}
 	else {
 		result = await pageType[currentPage](page);
 	}
 
-	const movies = getFormattedMovie(result);
-	renderMovieList(movies);
+	const {results, total_pages } = result;
+
+	setState(state, {
+		totalPage: total_pages
+	});
+
+	const movies = getFormattedMovie(results);
+	renderMovieList(movies, isLoadMore);
 }
 
 export const PopularPage = async (page = 1): Promise<void> => {
-	state.currentPage = "popular";
-	await FillPage({page});
+	setState(state, {
+		currentType: "popular",
+		currentPage: page
+	});
+
+	FillPage({page});
 }
 
 export const RatedPage = async (page = 1): Promise<void> => {
-	state.currentPage = "rated";
-	await FillPage({page});
+	setState(state, {
+		currentType: "rated",
+		currentPage: page
+	});
+
+	FillPage({page});
 }
 
 export const UpcomingPage = async (page = 1): Promise<void> => {
-	state.currentPage = "upcoming";
-	await FillPage({page});
+	setState(state, {
+		currentType: "upcoming",
+		currentPage: page
+	});
+
+	FillPage({page});
 }
 
 export const SearchPage = async (searchKey: string): Promise<void> => {
-	state.currentPage = "search";
-	await FillPage({searchKey});
+	setState(state, {
+		currentType: "search",
+		searchKey
+	});
+
+	FillPage({searchKey});
+}
+
+export const LoadMore = async (page = 1): Promise<void> => {
+	const { totalPage, currentPage, searchKey } = state;
+	const isLoadMore = totalPage !== currentPage;
+	page = isLoadMore ? currentPage + 1 : currentPage;
+
+	setState(state, {
+		currentPage: page,
+		searchKey
+	})
+
+	isLoadMore && FillPage({ page, isLoadMore });
 }

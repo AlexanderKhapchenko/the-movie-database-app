@@ -1,4 +1,4 @@
-import { PopularPage, UpcomingPage, RatedPage, SearchPage } from "./handlers";
+import { PopularPage, UpcomingPage, RatedPage, SearchPage, LoadMore } from "./handlers";
 
 export const createEventListeners = async (): Promise<void> => {
 	const popularBtn = document.getElementById("popular");
@@ -15,4 +15,7 @@ export const createEventListeners = async (): Promise<void> => {
 		e.preventDefault();
 		SearchPage(search.input.value);
 	});
+
+	const loadMoreBtn = document.getElementById("load-more");
+	loadMoreBtn && (loadMoreBtn.onclick = () => LoadMore());
 }
