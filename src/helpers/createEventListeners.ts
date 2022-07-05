@@ -1,4 +1,4 @@
-import { PopularPage, UpcomingPage,RatedPage } from "./handlers";
+import { PopularPage, UpcomingPage, RatedPage, SearchPage } from "./handlers";
 
 export const createEventListeners = async (): Promise<void> => {
 	const popularBtn = document.getElementById("popular");
@@ -9,4 +9,10 @@ export const createEventListeners = async (): Promise<void> => {
 
 	const ratedBtn = document.getElementById("top_rated");
 	ratedBtn && (ratedBtn.onclick = () => RatedPage());
+
+	const search = document.querySelector("form");
+	search && (search.onsubmit = (e) => {
+		e.preventDefault();
+		SearchPage(search.input.value);
+	});
 }
