@@ -4,12 +4,14 @@ import { createMovieCard } from "./createMovieCard";
 export const renderMovieList = (movies: IMovie[], isLoadMore = false): void => {
 	const filmContainer = document.getElementById("film-container");
 
+	const newMovies = movies.map(movie => createMovieCard(movie));
+
 	if (filmContainer) {
-		if (isLoadMore) {
-			filmContainer.innerHTML += movies.map(movie => createMovieCard(movie)).join('');
+
+		if (!isLoadMore) {
+			filmContainer.innerHTML = "";
 		}
-		else {
-			filmContainer.innerHTML = movies.map(movie => createMovieCard(movie)).join('');
-		}
+
+		filmContainer.append(...newMovies);
 	}
 }
