@@ -36,3 +36,12 @@ export interface IParams {
 	query?: string; 
 	page?: number;
 }
+
+export interface IPage {
+	currentPage: "popular" | "rated" | "upcoming" | "search";
+}
+
+export interface IFillPageProps {
+	page?: number;
+	searchKey?: string;
+}
