@@ -1,5 +1,5 @@
-import { IMovie } from "../../interfaces/interfaces";
-import { createMovieCard } from "./createMovieCard";
+import { IMovie } from "../interfaces/interfaces";
+import { createMovieCard } from "../components/createMovieCard";
 
 export const renderMovieList = (movies: IMovie[], isLoadMore = false): void => {
 	const filmContainer = document.getElementById("film-container");

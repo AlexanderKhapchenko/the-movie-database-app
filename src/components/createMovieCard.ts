@@ -1,4 +1,4 @@
-import { IMovie } from "../../interfaces/interfaces";
+import { IMovie } from "../interfaces/interfaces";
 
 export const createMovieCard = ({id, posterPath, overview, releaseDate}: IMovie): HTMLElement => {
 	const fullHeart = 'red';

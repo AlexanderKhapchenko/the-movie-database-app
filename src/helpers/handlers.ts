@@ -1,6 +1,6 @@
 import { getPopular, getRated, getUpcoming, getByName } from "../api/api"
 import { getFormattedMovie } from "./mapper";
-import { renderMovieList } from "./html/renderers";
+import { renderMovieList } from "./renderers";
 import { IFillPageProps, IPage } from "../interfaces/interfaces";
 
 let state: IPage = {
