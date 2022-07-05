@@ -1,3 +1,4 @@
+import { createFavoriteMovies } from "./favoriteMovies";
 import { PopularPage, UpcomingPage, RatedPage, SearchPage, LoadMore } from "./handlers";
 
 export const createEventListeners = async (): Promise<void> => {
@@ -18,4 +19,7 @@ export const createEventListeners = async (): Promise<void> => {
 
 	const loadMoreBtn = document.getElementById("load-more");
 	loadMoreBtn && (loadMoreBtn.onclick = () => LoadMore());
+
+	const favoriteMoviesButton = document.getElementById("favorite-movies-btn");
+	favoriteMoviesButton && (favoriteMoviesButton.onclick = () => createFavoriteMovies());
 }
