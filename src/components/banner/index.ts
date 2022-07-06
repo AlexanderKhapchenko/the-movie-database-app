@@ -1,4 +1,5 @@
 import { IMovie } from "../../interfaces";
+import { YoutubePlayer } from "../youtube-player";
 
 export const Banner = (movies: IMovie[]): void => {
 	const API_IMAGE = process.env.API_IMAGE;
@@ -15,4 +16,6 @@ export const Banner = (movies: IMovie[]): void => {
 
 	const bg = document.getElementById('random-movie');
 	bg && (bg.style.backgroundImage = `url(${API_IMAGE + randMovie.backdropPath})`);
+
+	YoutubePlayer(randMovie.id.toString());
 }

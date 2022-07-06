@@ -1,5 +1,5 @@
 import { MovieApiPath } from "../enums";
-import { IMovieResult, IMoviesResponse, IParams } from "../interfaces";
+import { IMovieResult, IMoviesResponse, IMovieVideos, IMovieVideo, IParams } from "../interfaces";
 import { ApiReturnedValue } from "../types/api-returned-value";
 
 const API_URL = process.env.API_URL;
@@ -60,6 +60,14 @@ export const getByName = async (searchKey: string): Promise<ApiReturnedValue> =>
 export const getById = async (id: string): Promise<IMovieResult> => {
 	const results  = await fetchRequest<IMovieResult>(
 		`${API_URL + MovieApiPath.details}/${id}`
+	);
+
+	return results;
+}
+
+export const getVideoById = async(id: string): Promise<IMovieVideo[]> => {
+	const {results}  = await fetchRequest<IMovieVideos>(
+		`${API_URL + MovieApiPath.details}/${id}/videos`,
 	);
 
 	return results;
