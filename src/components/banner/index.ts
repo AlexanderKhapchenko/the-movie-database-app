@@ -17,5 +17,5 @@ export const Banner = (movies: IMovie[]): void => {
 	const bg = document.getElementById('random-movie');
 	bg && (bg.style.backgroundImage = `url(${API_IMAGE + randMovie.backdropPath})`);
 
-	//YoutubePlayer(randMovie.id.toString());
+	YoutubePlayer(randMovie.id.toString());
 }
