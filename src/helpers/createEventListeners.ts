@@ -1,4 +1,4 @@
-import { createFavoriteMovies } from "./favoriteMovies";
+import { createFavoriteMovies } from "../components";
 import { PopularPage, UpcomingPage, RatedPage, SearchPage, LoadMore } from "./handlers";
 
 export const createEventListeners = async (): Promise<void> => {

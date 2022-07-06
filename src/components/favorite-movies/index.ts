@@ -1,7 +1,7 @@
-import { getById } from "../api/api";
-import { createMovieCard } from "../components/createMovieCard";
-import { IMovie } from "../interfaces/interfaces";
-import { getFormattedMovie } from "./mapper";
+import { getById } from "../../api";
+import { getFormattedMovie } from "../../helpers/mapper";
+import { IMovie } from "../../interfaces";
+import { MovieCard } from "../movie-card";
 
 const favoriteMovie: IMovie[] = [];
 
@@ -41,7 +41,7 @@ export const createFavoriteMovies = async (): Promise<void> => {
 export const renderFavoriteMovie = (list: IMovie[]): void => {
 	const filmContainer = document.getElementById("favorite-movies");
 
-	const movies = list.map(movie => createMovieCard(movie, true));
+	const movies = list.map(movie => MovieCard(movie, true));
 	if (filmContainer) {
 		filmContainer.innerHTML = "";
 		filmContainer.append(...movies);

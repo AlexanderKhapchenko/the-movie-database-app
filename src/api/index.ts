@@ -1,5 +1,5 @@
-import { MovieApiPath } from "../enums/movie-api-path";
-import { IMovieResult, IMoviesResponse, IParams } from "../interfaces/interfaces";
+import { MovieApiPath } from "../enums";
+import { IMovieResult, IMoviesResponse, IParams } from "../interfaces";
 import { ApiReturnedValue } from "../types/api-returned-value";
 
 const API_URL = process.env.API_URL;

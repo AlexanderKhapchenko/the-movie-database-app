@@ -1,7 +1,7 @@
-import { addFavoriteMovies, removeFavoriteMovies } from "../helpers/favoriteMovies";
-import { IMovie } from "../interfaces/interfaces";
+import { IMovie } from "../../interfaces";
+import { addFavoriteMovies, removeFavoriteMovies } from "../favorite-movies";
 
-export const createMovieCard = ({id, posterPath, overview, releaseDate}: IMovie, inFavoriteList = false): HTMLElement => {
+export const MovieCard = ({id, posterPath, overview, releaseDate}: IMovie, inFavoriteList = false): HTMLElement => {
 	const API_IMAGE = process.env.API_IMAGE;
 	const fullHeart = 'red';
 	const emptyHeart = '#ff000078';
