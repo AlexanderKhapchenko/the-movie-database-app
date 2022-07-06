@@ -2,6 +2,7 @@ import { addFavoriteMovies, removeFavoriteMovies } from "../helpers/favoriteMovi
 import { IMovie } from "../interfaces/interfaces";
 
 export const createMovieCard = ({id, posterPath, overview, releaseDate}: IMovie, inFavoriteList = false): HTMLElement => {
+	const API_IMAGE = process.env.API_IMAGE;
 	const fullHeart = 'red';
 	const emptyHeart = '#ff000078';
 
@@ -13,7 +14,7 @@ export const createMovieCard = ({id, posterPath, overview, releaseDate}: IMovie,
 
 	movieCard.innerHTML = `
 		<div class="card shadow-sm">
-			<img src="https://image.tmdb.org/t/p/original/${posterPath}">
+			<img src="${API_IMAGE + posterPath}">
 			<svg 
 				movie-id="${id}"
 				is-liked="${isLiked ? 'true' : 'false'}"

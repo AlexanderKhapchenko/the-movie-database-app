@@ -5,6 +5,7 @@ declare global {
     interface ProcessEnv {
       API_KEY: string;
 			API_URL: string;
+			API_IMAGE: string;
     }
   }
 }
