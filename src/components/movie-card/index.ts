@@ -1,7 +1,7 @@
-import { addFavoriteMovies, removeFavoriteMovies } from "../helpers/favoriteMovies";
-import { IMovie } from "../interfaces/interfaces";
+import { IMovie } from "../../interfaces";
+import { addFavoriteMovies, removeFavoriteMovies } from "../favorite-movies";
 
-export const createMovieCard = ({id, posterPath, overview, releaseDate}: IMovie, inFavoriteList = false): HTMLElement => {
+export const MovieCard = ({id, posterPath, overview, releaseDate}: IMovie, inFavoriteList = false): HTMLElement => {
 	const API_IMAGE = process.env.API_IMAGE;
 	const fullHeart = 'red';
 	const emptyHeart = '#ff000078';
@@ -49,27 +49,21 @@ export const createMovieCard = ({id, posterPath, overview, releaseDate}: IMovie,
 	
 	const checkSimilarFilm = (id: number): void => {
 		const movie = document.querySelector(`#film-container svg[movie-id="${id}"]`);
-		movie && toggleLike(movie);
+		movie && toggleLike(movie, true);
 	}
 
-	const toggleLike = (element: Element) => {
+	const toggleLike = (element: Element, isCheckSimilar = false) => {
 		if (element.getAttribute('is-liked') === 'true') {
 			element.setAttribute('is-liked', 'false');
 			element.setAttribute('fill', emptyHeart);
-
-			if (!inFavoriteList) {
-				localStorage.removeItem(id.toString());
-				removeFavoriteMovies(id);
-			}
+			localStorage.removeItem(id.toString());
+			!isCheckSimilar && removeFavoriteMovies(id);
 		}
 		else {
 			element.setAttribute('is-liked', 'true');
 			element.setAttribute('fill', fullHeart);
-
-			if (!inFavoriteList) {
-				localStorage.setItem(id.toString(), 'like');
-				addFavoriteMovies(id.toString());
-			}
+			localStorage.setItem(id.toString(), 'like');
+			!isCheckSimilar && addFavoriteMovies(id.toString());
 		}
 	}
 

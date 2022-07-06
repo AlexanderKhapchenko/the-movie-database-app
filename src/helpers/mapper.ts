@@ -1,4 +1,4 @@
-import { IMovie, IMovieResult } from "../interfaces/interfaces";
+import { IMovie, IMovieResult } from "../interfaces";
 
 export const getFormattedMovie = (raw: IMovieResult[]): IMovie[] => 
 	raw.map(movie => {

@@ -1,7 +1,7 @@
-import { getPopular, getRated, getUpcoming, getByName } from "../api/api"
+import { getPopular, getRated, getUpcoming, getByName } from "../api"
 import { getFormattedMovie } from "./mapper";
-import { renderBanner, renderMovieList } from "./renderers";
-import { IFillPageProps, IPage } from "../interfaces/interfaces";
+import { IFillPageProps, IPage } from "../interfaces";
+import { Banner, MovieList } from "../components";
 
 let state: IPage = {
 	currentType: "popular",
@@ -41,8 +41,8 @@ export const FillPage = async ({ page, isLoadMore = false }: IFillPageProps): Pr
 	});
 
 	const movies = getFormattedMovie(results);
-	renderMovieList(movies, isLoadMore);
-	renderBanner(movies);
+	MovieList(movies, isLoadMore);
+	Banner(movies);
 }
 
 export const PopularPage = async (page = 1): Promise<void> => {

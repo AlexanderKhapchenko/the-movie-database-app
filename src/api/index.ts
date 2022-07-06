@@ -1,5 +1,5 @@
-import { MovieApiPath } from "../enums/movie-api-path";
-import { IMovieResult, IMoviesResponse, IParams } from "../interfaces/interfaces";
+import { MovieApiPath } from "../enums";
+import { IMovieResult, IMoviesResponse, IParams } from "../interfaces";
 import { ApiReturnedValue } from "../types/api-returned-value";
 
 const API_URL = process.env.API_URL;
@@ -7,7 +7,6 @@ const API_KEY = process.env.API_KEY
 
 export const getPopular = async (page = 1): Promise<ApiReturnedValue> => {
 	const params = {
-		api_key: API_KEY,
 		page
 	}
 
@@ -21,7 +20,6 @@ export const getPopular = async (page = 1): Promise<ApiReturnedValue> => {
 
 export const getRated = async (page = 1): Promise<ApiReturnedValue> => {
 	const params = {
-		api_key: API_KEY,
 		page
 	}
 
@@ -35,7 +33,6 @@ export const getRated = async (page = 1): Promise<ApiReturnedValue> => {
 
 export const getUpcoming = async (page = 1): Promise<ApiReturnedValue> => {
 	const params = {
-		api_key: API_KEY,
 		page
 	}
 
@@ -49,7 +46,6 @@ export const getUpcoming = async (page = 1): Promise<ApiReturnedValue> => {
 
 export const getByName = async (searchKey: string): Promise<ApiReturnedValue> => {
 	const params = {
-		api_key: API_KEY,
 		query: searchKey
 	}
 
@@ -62,20 +58,15 @@ export const getByName = async (searchKey: string): Promise<ApiReturnedValue> =>
 }
 
 export const getById = async (id: string): Promise<IMovieResult> => {
-	const params = {
-		api_key: API_KEY
-	}
-
 	const results  = await fetchRequest<IMovieResult>(
-		`${API_URL + MovieApiPath.details}/${id}`, 
-		params
+		`${API_URL + MovieApiPath.details}/${id}`
 	);
 
 	return results;
 }
 
-const fetchRequest = async <T>(url: string, params: IParams): Promise<T> => {
-	const formattedParams = Object.entries(params)
+const fetchRequest = async <T>(url: string, params?: Partial<IParams>): Promise<T> => {
+	const formattedParams = Object.entries({...params, api_key: API_KEY})
 		.map(([key, value]) => `${key}=${value}`)
 		.join('&');
 
