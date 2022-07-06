@@ -1,6 +1,6 @@
 import { getVideoById } from "../../api";
 
-export const YoutubePlayer = async (id: string): Promise<void> => {
+export const YoutubePlayer = async (id: number): Promise<void> => {
 
 	const results = await getVideoById(id);
 	const trailer = results.length ? results.find(vid => vid.name === 'Official Trailer') : { key: 'xkfrrkqlKGE' };

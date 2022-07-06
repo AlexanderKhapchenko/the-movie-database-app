@@ -63,7 +63,7 @@ export const MovieCard = ({id, posterPath, overview, releaseDate}: IMovie, inFav
 			element.setAttribute('is-liked', 'true');
 			element.setAttribute('fill', fullHeart);
 			localStorage.setItem(id.toString(), 'like');
-			!isCheckSimilar && addFavoriteMovies(id.toString());
+			!isCheckSimilar && addFavoriteMovies(id);
 		}
 	}
 
