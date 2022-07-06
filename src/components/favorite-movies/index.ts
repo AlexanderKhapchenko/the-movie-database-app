@@ -10,7 +10,7 @@ export const removeFavoriteMovies = (id: number): void => {
 	favoriteMovie.splice(index, 1);
 }
 
-export const addFavoriteMovies = async (id: string): Promise<void> => {
+export const addFavoriteMovies = async (id: number): Promise<void> => {
 	const result = await getById(id);
 	const movieList = getFormattedMovie([result]);
 	favoriteMovie.push(...movieList);
@@ -30,7 +30,7 @@ export const createFavoriteMovies = async (): Promise<void> => {
 		.filter(id => 
 			!favoriteMovie
 			.some(e => e.id.toString() === id))
-		.map(id => getById(id)));
+		.map(id => getById(Number(id))));
 	
 	const movieList = getFormattedMovie(result);
 	favoriteMovie.push(...movieList);

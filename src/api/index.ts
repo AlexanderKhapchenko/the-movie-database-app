@@ -57,7 +57,7 @@ export const getByName = async (searchKey: string): Promise<ApiReturnedValue> =>
 	return { results, total_pages };
 }
 
-export const getById = async (id: string): Promise<IMovieResult> => {
+export const getById = async (id: number): Promise<IMovieResult> => {
 	const results  = await fetchRequest<IMovieResult>(
 		`${API_URL + MovieApiPath.details}/${id}`
 	);
@@ -65,7 +65,7 @@ export const getById = async (id: string): Promise<IMovieResult> => {
 	return results;
 }
 
-export const getVideoById = async(id: string): Promise<IMovieVideo[]> => {
+export const getVideoById = async(id: number): Promise<IMovieVideo[]> => {
 	const {results}  = await fetchRequest<IMovieVideos>(
 		`${API_URL + MovieApiPath.details}/${id}/videos`,
 	);
