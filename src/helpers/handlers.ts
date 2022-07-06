@@ -1,6 +1,6 @@
 import { getPopular, getRated, getUpcoming, getByName } from "../api/api"
 import { getFormattedMovie } from "./mapper";
-import { renderMovieList } from "./renderers";
+import { renderBanner, renderMovieList } from "./renderers";
 import { IFillPageProps, IPage } from "../interfaces/interfaces";
 
 let state: IPage = {
@@ -42,6 +42,7 @@ export const FillPage = async ({ page, isLoadMore = false }: IFillPageProps): Pr
 
 	const movies = getFormattedMovie(results);
 	renderMovieList(movies, isLoadMore);
+	renderBanner(movies);
 }
 
 export const PopularPage = async (page = 1): Promise<void> => {
