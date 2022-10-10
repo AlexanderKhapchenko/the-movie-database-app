@@ -1,5 +1,8 @@
 # MOVIE APP
 
+## Env
+Copy `.env.example` file to create and fill `.env` file.
+
 ## Instalation
 
 `npm install`
